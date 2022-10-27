@@ -8,15 +8,15 @@ function _all_cpus()
     lscpu | grep "^CPU(s):" | awk '{print $2}'
 }
 
-function core_show_frequency()
+function core_show_freq()
 {
     local i="$1"
     if [[ -z "$i" ]]; then
         echo "Use cpu0 as default"
         i=0
     fi
-    cat /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_freq
-    cat /sys/devices/system/cpu/cpu$i/cpufreq/scaling_min_freq
+    echo "max=$(cat /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_freq)"
+    echo "min=$(cat /sys/devices/system/cpu/cpu$i/cpufreq/scaling_min_freq)"
 }
 
 function core_show_driver()
@@ -63,9 +63,9 @@ function core_show_min_freq()
     cat /sys/devices/system/cpu/cpu$i/cpufreq/cpuinfo_min_freq
 }
 
-function core_set_fixed_frequency()
+function core_set_fixed_freq()
 {
-    local ghz="$1"
+    local ghz="$1" # 900000 means 0.9Ghz 1000000=1Ghz
     local all_cpus=$(_all_cpus)
     local i=0
 
