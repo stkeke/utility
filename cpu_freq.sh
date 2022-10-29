@@ -1,7 +1,7 @@
 #!/bin/bash
 
 RDMSR_CMD="sudo /usr/sbin/rdmsr"
-WRMSR_CMD="sudo /usr/sbin/wrmsr"
+WRMSR_CMD="sudo /usr/sbin/wrmsr --all"
 
 function _all_cpus()
 {
