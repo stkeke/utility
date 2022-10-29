@@ -127,23 +127,23 @@ function run_benchmark()
 # main function
 for cpu_count in $(seq -s ' '  5 2 15); do
 for core_freq in $(seq 1000000 100000 2600000); do
-for uncore_freq in $(seq 8 1 22); do
     # set fixed core frequency
     core_set_fixed_freq $core_freq
 
-    # set fixed uncore frequency
-    uncore_set_fixed_freq $uncore_freq
+	for uncore_freq in $(seq 8 1 22); do
+	    # set fixed uncore frequency
+	    uncore_set_fixed_freq $uncore_freq
 
-    # benchmark Opt
-    docker_name="tony_opt"
-    echo -n "$docker_name:$cpu_count:$core_freq:$uncore_freq:" >> "$log_file"
-    run_benchmark $docker_name $cpu_count
+	    # benchmark Opt
+	    docker_name="tony_opt"
+	    echo -n "$docker_name:$cpu_count:$core_freq:$uncore_freq:" >> "$log_file"
+	    run_benchmark $docker_name $cpu_count
 
-    # run OptJIT
-    docker_name="tony_optjit"
-    echo -n "$docker_name:$cpu_count:$core_freq:$uncore_freq:" >> "$log_file"
-    run_benchmark $docker_name $cpu_count
-done # uncore frquency loop
+	    # run OptJIT
+	    docker_name="tony_optjit"
+	    echo -n "$docker_name:$cpu_count:$core_freq:$uncore_freq:" >> "$log_file"
+	    run_benchmark $docker_name $cpu_count
+	done # uncore frquency loop
 done # core frequency loop
 done # cpu_count loop
 
