@@ -77,6 +77,23 @@ function core_set_fixed_freq()
     done
 }
 
+function core_restore_freq()
+{
+    local min_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq)
+    local max_freq=$(cat /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq)
+
+    local all_cpus=$(_all_cpus)
+    for (( i=0; i<$all_cpus; i++ ))
+    do
+        echo "restore cpu$i as [$min_freq, $max_freq]"
+        sudo su - -c "echo $min_freq >  /sys/devices/system/cpu/cpu$i/cpufreq/scaling_min_freq"
+        sudo su - -c "echo $max_freq >  /sys/devices/system/cpu/cpu$i/cpufreq/scaling_max_freq"
+    done
+
+    core_show_freq
+}
+
+### Uncore functions ###
 function uncore_show_freq()
 {
     local i="$1"
