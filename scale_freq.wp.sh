@@ -3,7 +3,6 @@
 # Usage
 # core/uncore frequency iteration for benchmark
 #
-# Change cpu type from icx to your type - search --cpu-type
 # Change image to your image
 # Require cpu_freq.bash script in utility repo
 # 	git clone https://github.com/stkeke/utility.git
@@ -115,7 +114,7 @@ function run_benchmark()
         done
     fi
 
-    $WORKDIR/run_benchmark.sh --run-case 0 --cpu-type spr --emon --emon-time 120
+    $WORKDIR/run_benchmark.sh --run-case 0 --cpu-type $(cpu_model) --emon --emon-time 120
 }
 
 # main function
