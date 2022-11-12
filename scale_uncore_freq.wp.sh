@@ -16,7 +16,7 @@ WORKDIR=$(dirname $0)
 source "$WORKDIR"/cpu_freq.bash
 image=pkb-1.25.0-wp5.6-php8.0.18-optjit
 
-log_dir="$WORKDIR/$(basename $0 .sh)/"
+log_dir="$WORKDIR/$(basename $0 .sh).$(cpu_model)/"
 log_file="$log_dir/$(basename $0).log"
 sudo rm -rf "$log_dir"
 mkdir -p "$log_dir"

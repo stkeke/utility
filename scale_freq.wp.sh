@@ -17,7 +17,7 @@ WORKDIR=$(dirname $0)
 source "$WORKDIR"/cpu_freq.bash
 image=pkb-1.25.0-wp5.6-php8.0.18-optjit
 
-log_dir="$WORKDIR/scale_freq.wp/"
+log_dir="$WORKDIR/$(basename $0 .sh).$(cpu_model)/"
 log_file="$log_dir/$(basename $0).log"
 rm -rf "$log_dir"
 mkdir -p "$log_dir"
@@ -118,11 +118,11 @@ function run_benchmark()
 }
 
 # main function
-for core_freq in $(seq 1000000 100000 2600000); do
+for core_freq in $(seq 1000000 200000 2600000); do
     # set fixed core frequency
     core_set_fixed_freq $core_freq
 
-	for uncore_freq in $(seq 8 1 22); do
+	for uncore_freq in $(seq 8 2 22); do
 	    # set fixed uncore frequency
 	    uncore_set_fixed_freq $uncore_freq
 
@@ -130,13 +130,13 @@ for core_freq in $(seq 1000000 100000 2600000); do
 	    docker_name="tony_opt"
 	    echo "$(date):$docker_name:$core_freq:$uncore_freq:" >> "$log_file"
 	    run_benchmark $docker_name
-        mv run-* "$log_dir"/${docker_name}.${core_freq}.${uncore_freq}
+	    mv run-* "$log_dir"/${docker_name}.${core_freq}.${uncore_freq}
 
 	    # run OptJIT
 	    docker_name="tony_optjit"
 	    echo "$(date):$docker_name:$core_freq:$uncore_freq:" >> "$log_file"
 	    run_benchmark $docker_name
-        mv run-* "$log_dir"/${docker_name}.${core_freq}.${uncore_freq}
+	    mv run-* "$log_dir"/${docker_name}.${core_freq}.${uncore_freq}
 	done # uncore frquency loop
 done # core frequency loop
 
