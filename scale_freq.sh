@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 WORKDIR=$(dirname $0)
-source "$WORKDIR"/cpu_freq.sh
+source "$WORKDIR"/cpu_freq.bash
 image=pkb-1.25.0-wp5.6-php8.0.18-optjit
 
 log_file="$(basename $0).log"

@@ -5,7 +5,7 @@
 #
 # Change cpu type from icx to your type - search --cpu-type
 # Change image to your image
-# Require cpu_freq.sh script in utility repo
+# Require cpu_freq.bash script in utility repo
 # 	git clone https://github.com/stkeke/utility.git
 #
 # git clone https://github.com/intel-sandbox/frameworks.benchmarking.cloud.language.runtime.git
@@ -14,7 +14,7 @@
 docker kill $(docker ps -aq); docker rm $(docker ps -qa)
 
 WORKDIR=$(dirname $0)
-source "$WORKDIR"/cpu_freq.sh
+source "$WORKDIR"/cpu_freq.bash
 image=pkb-1.25.0-wp5.6-php8.0.18-optjit
 
 log_dir="$WORKDIR/$(basename $0 .sh)/"
