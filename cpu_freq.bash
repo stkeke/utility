@@ -134,3 +134,17 @@ function uncore_restore_freq()
 {
     $WRMSR_CMD 0x620 0x$ORIGINAL_UNCORE_FREQ
 }
+
+# CPU model
+function cpu_model()
+{
+	local model=$(lscpu | grep '^Model:' | awk -F: '{print $2}')
+	if [[ "$model" == "143" ]]; then
+		echo "spr"
+	elif [[ "$model" == "106" ]]; then
+		echo "icx"
+	else
+		# default
+		echo "icx"
+	fi
+}
