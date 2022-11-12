@@ -12,7 +12,6 @@
 # put this script to frameworks.benchmarking.cloud.language.runtime/scripts/workload-tools/
 
 docker kill $(docker ps -aq); docker rm $(docker ps -qa)
-rm -rf run-*
 
 WORKDIR=$(dirname $0)
 source "$WORKDIR"/cpu_freq.sh
@@ -23,7 +22,7 @@ log_file="$log_dir/$(basename $0).log"
 sudo rm -rf "$log_dir"
 mkdir -p "$log_dir"
 
-sudo rm "$WORKDIR"/run-*
+sudo rm -rf "$WORKDIR"/run-*
 
 # functions
 function sleep_show_progress()
