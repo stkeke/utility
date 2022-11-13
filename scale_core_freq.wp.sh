@@ -118,6 +118,9 @@ function run_benchmark()
 }
 
 # main function
+# set uncore frequency
+sudo /usr/sbin/wrmsr --all 0x620 0x0819
+
 for core_freq in $(seq 1000000 200000 2600000); do
     # set fixed core frequency and keep uncore frequency
     core_set_fixed_freq $core_freq
@@ -134,3 +137,5 @@ for core_freq in $(seq 1000000 200000 2600000); do
     run_benchmark $docker_name
     mv run-* "$log_dir"/${docker_name}.${core_freq}
 done # core frequency loop
+
+core_restore_freq

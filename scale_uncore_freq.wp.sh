@@ -118,6 +118,9 @@ function run_benchmark()
 }
 
 # main function
+# restore core frequency just in case
+core_restore_freq
+
 for uncore_freq in $(seq 8 2 22); do
     # set fixed uncore frequency
     uncore_set_fixed_freq $uncore_freq
