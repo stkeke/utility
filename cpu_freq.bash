@@ -138,13 +138,13 @@ function uncore_restore_freq()
 # CPU model
 function cpu_model()
 {
-	local model=$(lscpu | grep '^Model:' | awk -F: '{print $2}')
+	local model="$(echo $(lscpu | grep '^Model:' | awk -F: '{print $2}'))"
 	if [[ "$model" == "143" ]]; then
 		echo "spr"
 	elif [[ "$model" == "106" ]]; then
 		echo "icx"
 	else
 		# default
-		echo "icx"
+		echo "unknown"
 	fi
 }
